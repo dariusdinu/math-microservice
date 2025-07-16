@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Math Operations</title>
+    <!-- prettier-ignore -->
+    <style type="text/css">{{ css | safe }}</style>
+</head>
+<body>
+    <h1>Math Operations</h1>
+
+    <h2>Power</h2>
+    <form action="/pow" method="post">
+        <div>
+            a: <input type="number" name="a">
+            b: <input type="number" name="b">
+        </div>
+
+        <button type="submit">Calculate a^b</button>
+    </form>
+
+    <h2>Fibonacci</h2>
+    <form action="/fib" method="post">
+        <div>
+            n: <input type="number" name="n">
+        </div>
+
+        <button type="submit">Calculate Fib(n)</button>
+    </form>
+
+    <h2>Factorial</h2>
+    <form action="/factorial" method="post">
+        <div>
+            n: <input type="number" name="n">
+        </div>
+
+        <button type="submit">Calculate n!</button>
+    </form>
+
+    {% if result %}
+        <h2>Result:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
+    {% if error %}
+        <h2 style="color: red;">Error:</h2>
+        <p style="color: red; background-color: rgb(248, 179, 179);">{{ error }}</p>
+{% endif %}
+</body>
+</html>

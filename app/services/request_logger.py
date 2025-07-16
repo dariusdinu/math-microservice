@@ -1,5 +1,3 @@
-# app/services/request_logger.py
-
 from app.db.session import SessionLocal
 from app.models.request_log import RequestLog
 

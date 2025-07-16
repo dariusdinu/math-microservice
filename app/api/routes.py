@@ -5,8 +5,22 @@ from app.services.math_service import (
     calculate_factorial
 )
 from app.services import request_logger
+from fastapi import Depends
+from sqlalchemy.orm import Session
+from app.db.session import SessionLocal
+from app.models.request_log import RequestLog
+from app.schemas.request_schemas import RequestLogSchema
+from typing import List
 
-router = APIRouter(prefix="/math")
+router = APIRouter()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 @router.post("/pow")
 def power(a: int, b: int):
@@ -31,3 +45,9 @@ def factorial(n: int):
         return {"result": result}
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+    
+@router.get("/logs", response_model=List[RequestLogSchema])
+def get_logs(db: Session = Depends(get_db)):
+    return db.query(RequestLog).all()
+
